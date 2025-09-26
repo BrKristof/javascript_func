@@ -1,0 +1,14 @@
+table, tr, th, td {
+    border-collapse: collapse;
+    border: 1px, dotted, red    ;
+}
+
+tr td:last-child{
+    background-color: purple;
+    color: white;
+}
+
+tr td:nth-last-child(3){
+    background-color: purple;
+    color: white;
+}
