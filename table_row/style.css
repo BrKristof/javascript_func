@@ -12,3 +12,42 @@ tr td:nth-last-child(3){
     background-color: purple;
     color: white;
 }
+
+#gyakorlas{
+    background-color: bisque;
+    color: black;
+
+}
+
+#gyakorlas button:has(+p){
+    background-color: aqua;
+    
+}
+
+#gyakorlas + a:hover{
+    color: blueviolet;
+}
+
+#gyakorlas:has(+ a:hover) button{
+    background-color: burlywood;
+}
+
+tr:not(:has(td[rowspan]))+ tr:not(:has(td[rowspan])):hover td{
+    background-color: brown;
+
+}
+
+tbody tr:has(td[rowspan]):hover td{
+    background-color: chartreuse;
+}
+
+tbody tr:has(td[rowspan]):hover + tr td{
+    background-color: darkorange;
+}
+tbody tr:has(td[rowspan]):has(+tr:hover) td {
+    background-color: brown
+    ;
+}
+tr:not(:has(td[rowspan])):hover td{
+    background-color: brown;
+}
