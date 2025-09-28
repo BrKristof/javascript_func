@@ -1,11 +1,11 @@
 table, th, tr, td{
-    border: 1px, solid, black;
+    border: 2px, dotted, green;
     border-collapse: collapse;
 
 }
 
 th{
-    background-color: aquamarine;
+    background-color: yellow;
 }
 table thead ~ tbody > tr{
     background-color: blueviolet;
@@ -16,10 +16,11 @@ table tbody > tr{
 }
 
 tbody tr:nth-child(2n){
-    background-color: green;
+    background-color: lightblue;
 
 }
 
 tbody tr:hover{
-    background-color: yellow;
+    background-color: red;
+    font-weight: bold;    
 }
