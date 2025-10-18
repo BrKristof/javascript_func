@@ -37,18 +37,10 @@ table.appendChild(thead)
 const tr = document.createElement('tr')
 thead.appendChild(tr)
 
-const th1 = document.createElement('th')
-th1.innerText = 'Szerző neve'
-tr.appendChild(th1)
 
-const th2 = document.createElement('th')
-th2.innerText = 'Korszak'
-tr.appendChild(th2)
-
-const th3 = document.createElement('th')
-th3.innerText = 'Szerelmek'
-th3.colSpan = "2"
-tr.appendChild(th3)
+th = CreateCellElement('th','Szerző neve', tr)
+th2 = CreateCellElement('th','Korszak',tr)
+th3 = CreateCellElement('th','Szerelmek',tr)
 
 const tbody = document.createElement('tbody')
 table.appendChild(tbody)
@@ -58,26 +50,18 @@ for (const a of arr){
     const tr2 = document.createElement('tr')
     tbody.appendChild(tr2)
 
-    const td1 = document.createElement('td')
-    td1.innerText = a.name
-    tr2.appendChild(td1)
+    td = CreateCellElement('td',a.name, tr2)
+    td2 = CreateCellElement('td',a.time, tr2)
+    td3 = CreateCellElement('td',a.interest1, tr2)
 
-    const td2 = document.createElement('td')
-    td2.innerText = a.time
-    tr2.appendChild(td2)
-    
-    const td3 = document.createElement('td')
-    td3.innerText = a.interest1
-    tr2.appendChild(td3)
+    if(a.interest2 != undefined){
 
-    if(a.interest2 != null){
-        const td4 = document.createElement('td')
-        td4.innerText = a.interest2
-        tr2.appendChild(td4)
+        td4 = CreateCellElement('td',a.interest2, tr2)
 
     }
     else{
-        td3.colSpan = "2"
+        td3.colSpan = "2" // return cell 
+        th3.colSpan = "2"
     }
     
 
@@ -88,6 +72,7 @@ for (const a of arr){
  * @param {string} celltype 
  * @param {string} cellcontent 
  * @param {HTMLTableRowElement} cellrow
+ * @returns {HTMLTableCellElement}
  */
 function CreateCellElement(celltype,cellcontent,cellrow){
 
@@ -95,5 +80,6 @@ function CreateCellElement(celltype,cellcontent,cellrow){
     cell.innerText = cellcontent
     cellrow.appendChild(cell)
 
+    return cell // emiatt tudjuk formazni 
 
 }
