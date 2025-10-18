@@ -80,6 +80,5 @@ function CreateCellElement(celltype,cellcontent,cellrow){
     cell.innerText = cellcontent
     cellrow.appendChild(cell)
 
-    return cell // emiatt tudjuk formazni 
-
+    return cell // visszatér az adott cellával igy tudjuk formázni/módosítani
 }
