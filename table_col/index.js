@@ -193,7 +193,7 @@ function CreateButton(buttonText){
     form.appendChild(button)
     const br = Break()
 }
-s
+
 //egyszerűsített változat
 
 const h2e = document.createElement('h2')
