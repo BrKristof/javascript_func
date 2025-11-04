@@ -138,13 +138,14 @@ input4.id = "szerelem2"
 form.appendChild(input4)*/
 const input4F = CreateInput('szerelem2','text','szerelem2')
 
-const button  = document.createElement('button')
-button.innerText = 'Hozzáadás'
-form.appendChild(button)
+const button  = CreateButton('Hozzáadás')
 
 
-
-
+/**
+ * 
+ * @param {string} labeltext 
+ * @param {string} labelfor 
+ */
 function CreateLabel(labeltext, labelfor){
 
     const brb = Break()
@@ -155,6 +156,12 @@ function CreateLabel(labeltext, labelfor){
     const br = Break()
 }
 
+/**
+ * 
+ * @param {string} inputid 
+ * @param {string} inputType 
+ * @param {string} inputName 
+ */
 function CreateInput(inputid,inputType,inputName){
 
     
@@ -168,9 +175,60 @@ function CreateInput(inputid,inputType,inputName){
 
 }
 
+
 function Break(){
 
     const br = document.createElement('br')
     form.appendChild(br)
+}
+
+/**
+ * 
+ * @param {string} buttonText 
+ */
+function CreateButton(buttonText){
+
+    const button  = document.createElement('button')
+    button.innerText = buttonText
+    form.appendChild(button)
+    const br = Break()
+}
+s
+//egyszerűsített változat
+
+const h2e = document.createElement('h2')
+h2e.innerText = 'Javascript form 2'
+form.appendChild(h2e)
+const form1 = CreatanInputWithLabel('Költő neve:','kolto_nev','text','kolto_nev')
+const form2 = CreatanInputWithLabel('Korszak:','korszak','text','korszak')
+const form3 = CreatanInputWithLabel('Szerelme:','szerelem1','text','szerelem1')
+const form4 = CreatanInputWithLabel('Szerelme:','szerelem2','text','szerelem2')
+const fbutton  = CreateButton('Hozzáadás')
+
+
+/**
+ * 
+ * @param {string} ltext 
+ * @param {string} inputId 
+ * @param {string} inputType 
+ * @param {string} inputName 
+ */
+function CreatanInputWithLabel(ltext,inputId,inputType,inputName){
+
+    const label = document.createElement('label')
+    label.innerText = ltext
+    label.htmlFor = inputId
+    
+    const input = document.createElement('input')
+    input.id = inputId
+    input.type = inputType
+    input.name = inputName
+
+    const brb = Break()
+    form.appendChild(label)
+    const br = Break()
+    form.appendChild(input)
+    const bra = Break()
+
 }
 
