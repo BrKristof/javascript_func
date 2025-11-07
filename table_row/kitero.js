@@ -60,6 +60,14 @@ for (const a of arr){
 
     const td = document.createElement('td')
     td.innerText = a.from
+
+    td.addEventListener("click",function(e){
+        /**
+         * @type {HTMLTableCellElement}
+         */
+        const i = e.target
+        i.classList.add('marked')
+    })
     tr.appendChild(td)
 
     const td2 = document.createElement('td')

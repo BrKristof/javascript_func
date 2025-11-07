@@ -51,3 +51,7 @@ tbody tr:has(td[rowspan]):has(+tr:hover) td {
 tr:not(:has(td[rowspan])):hover td{
     background-color: brown;
 }
+
+tr td.marked{
+    color: red;
+}
