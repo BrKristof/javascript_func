@@ -36,6 +36,7 @@ const arr = [
 const table = document.createElement('table')
 document.body.appendChild(table)
 
+
 const thead = document.createElement('thead')
 table.appendChild(thead)
 
@@ -54,6 +55,8 @@ for(const a of headarr){
 
 const tbody = document.createElement('tbody')
 table.appendChild(tbody)
+tbody.id = 'tbody'
+
 
 for (const a of arr){
 
@@ -68,7 +71,21 @@ for (const a of arr){
          * @type {HTMLTableCellElement}
          */
         const i = e.target
+        
+
+        const row = i.parentElement
+        const tbody = row.parentElement
+
+        const marked = tbody.querySelector('.marked')
+
+        if(marked !== Null){
+            marked.classList.remove(marked)
+        }
+        marked.classList.add()
+
         i.classList.add('marked')
+
+
     })
     tr.appendChild(td)
 
@@ -197,9 +214,14 @@ form.addEventListener('submit', function(e){
         td.rowSpan = '2'
     }
 
+    arr.push(obj)
+
+    renderTableBody(arr)
 
 
 })
+
+
 
 const fr = document.createElement('form')
 document.body.appendChild(fr)
@@ -234,6 +256,7 @@ function CreateFormFormat(form,id,labelcontent){
 
 
 }
+button('Hozzáadás',fr)
 
 function Break(where){
     
@@ -241,6 +264,84 @@ function Break(where){
     where.appendChild(br)
 
 }
+
+function button(text,where){
+    
+    const button = document.createElement('button')
+    button.innerText = text
+    where.appendChild(button)
+
+}
+
+
+
+function renderTableBody(array){
+
+    const innerbody = document.getElementById('tbody')
+    innerbody.innerHTML = ""
+    
+
+    for (const a of array){
+
+
+        const tr = document.createElement('tr')
+        innerbody.appendChild(tr)
+
+        const td = document.createElement('td')
+        td.innerText = a.from
+
+        td.addEventListener("click",function(e){
+            /**
+             * @type {HTMLTableCellElement}
+             */
+            const i = e.target
+            
+
+            const row = i.parentElement
+            const tbody = row.parentElement
+
+            const marked = tbody.querySelector('.marked')
+
+            if(marked != Null){
+                marked.classList.remove(marked)
+            }
+            marked.classList.add()
+
+            i.classList.add('marked')
+
+
+        })
+        tr.appendChild(td)
+
+        const td2 = document.createElement('td')
+        td2.innerText = a.person
+        tr.appendChild(td2)
+
+        const td3 = document.createElement('td')
+        td3.innerText = a.piece
+        tr.appendChild(td3)
+
+        if(a.person2 != undefined && a.piece2 != undefined){
+
+            const ptr = document.createElement('tr')
+            innerbody.appendChild(ptr)
+
+            const td4 = document.createElement('td')
+            td4.innerText = a.person2
+            ptr.appendChild(td4)
+
+            const td5 = document.createElement('td')
+            td5.innerText = a.piece2
+            ptr.appendChild(td5)
+
+            td.rowSpan = '2'
+        }
+
+
+    }
+
+}
+renderTableBody(arr)
 
 
 
