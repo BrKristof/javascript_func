@@ -58,64 +58,6 @@ table.appendChild(tbody)
 tbody.id = 'tbody'
 
 
-for (const a of arr){
-
-    const tr = document.createElement('tr')
-    tbody.appendChild(tr)
-
-    const td = document.createElement('td')
-    td.innerText = a.from
-
-    td.addEventListener("click",function(e){
-        /**
-         * @type {HTMLTableCellElement}
-         */
-        const i = e.target
-        
-
-        const row = i.parentElement
-        const tbody = row.parentElement
-
-        const marked = tbody.querySelector('.marked')
-
-        if(marked !== Null){
-            marked.classList.remove(marked)
-        }
-        marked.classList.add()
-
-        i.classList.add('marked')
-
-
-    })
-    tr.appendChild(td)
-
-    const td2 = document.createElement('td')
-    td2.innerText = a.person
-    tr.appendChild(td2)
-
-    const td3 = document.createElement('td')
-    td3.innerText = a.piece
-    tr.appendChild(td3)
-
-    if(a.person2 != undefined && a.piece2 != undefined){
-
-        const ptr = document.createElement('tr')
-        tbody.appendChild(ptr)
-
-        const td4 = document.createElement('td')
-        td4.innerText = a.person2
-        ptr.appendChild(td4)
-
-        const td5 = document.createElement('td')
-        td5.innerText = a.piece2
-        ptr.appendChild(td5)
-
-        td.rowSpan = '2'
-    }
-
-
-}
-
 const form = document.getElementById('htmlform')
 form.addEventListener('submit', function(e){
 
@@ -214,13 +156,7 @@ form.addEventListener('submit', function(e){
         td.rowSpan = '2'
     }
 
-    arr.push(obj)
-
-    renderTableBody(arr)
-
-
 })
-
 
 
 const fr = document.createElement('form')
@@ -232,9 +168,80 @@ const title = CreateFormFormat(fr,'mu1','Mű:')
 const author2 = CreateFormFormat(fr,'szerzo2','Szerző:')
 const title2 = CreateFormFormat(fr,'mu2','Mű:')
 
+fr.addEventListener('submit', function(e){
+
+    e.preventDefault()
+
+    /**
+     * @type {HTMLFormElement}
+     */
+    const js_form = e.target
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    const nationality = js_form.querySelector('#nemzetiseg')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const author = js_form.querySelector('#szerzo1')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const piece = js_form.querySelector('#mu1')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const author2 = js_form.querySelector('#szerzo2')
+        /**
+     * @type {HTMLInputElement}
+     */
+    const piece2 = js_form.querySelector('#mu2')
+    
+    /**
+     * @type {string}
+     */
+    const nvalue = nationality.value
+        /**
+     * @type {string}
+     */
+    const avalue = author.value
+        /**
+     * @type {string}
+     */
+    const pvalue = piece.value
+        /**
+     * @type {string}
+     */
+    const avalue2 = author2.value
+        /**
+     * @type {string}
+     */
+    const pvalue2 = piece2.value
+
+
+
+    /**
+     * @type {{from:string ,person:string ,piece:string ,piece2:?string ,person2:?string}}
+     */
+    const obj  = {}
+    obj.from = nvalue
+    obj.person = avalue
+    obj.piece = pvalue
+    obj.person2 = pvalue2
+    obj.piece2 = pvalue2
+
+
+    arr.push(obj)
+
+    renderTableBody(arr)
+})
+button('Hozzáadás',fr)
+
+
 /**
  * 
- * @param {*} form 
+ * @param {string} form 
  * @param {string} id 
  * @param {string} labelcontent 
  */
@@ -256,7 +263,7 @@ function CreateFormFormat(form,id,labelcontent){
 
 
 }
-button('Hozzáadás',fr)
+
 
 function Break(where){
     
