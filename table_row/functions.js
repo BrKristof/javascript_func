@@ -10,6 +10,12 @@
  */
 function CreateFormFormat(form,id,labelcontent){
 
+    const div = document.createElement('div')
+
+    const span = document.createElement('span')
+    span.classList.add('error')
+    
+
     const label = document.createElement('label')
     label.innerText = labelcontent
     label.htmlFor = id
@@ -17,12 +23,13 @@ function CreateFormFormat(form,id,labelcontent){
     const input = document.createElement('input')
     input.id = id
 
-
-    Break(form)
-    form.appendChild(label)
-    Break(form)
-    form.appendChild(input)
-    Break(form)
+    form.appendChild(div)
+    Break(div)
+    div.appendChild(label)
+    Break(div)
+    div.appendChild(input)
+    Break(div)
+    div.appendChild(span)
 
 
 }
@@ -224,4 +231,23 @@ function htmlFormEventListener(e){
     const tbody = document.getElementById('body')
 
     renderTableRow(tbody,obj)
+}
+
+/**
+ * 
+ * @param {HTMLInputElement} inputField1 
+ * @param {HTMLInputElement} inputField2 
+ * @param {HTMLInputElement} inputField3 
+ */
+function validateFields(inputField1,inputField2,inputField3){
+
+    const valid = false
+    if(inputField1.value == ""){
+        
+        valid = false
+    }
+
+
+    return valid
+
 }

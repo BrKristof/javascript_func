@@ -36,8 +36,6 @@ const table = document.createElement('table')
 document.body.appendChild(table)
 
 
-
-
 const headarr = ['Nemzetiség','Szerző','Mű']
 const th = headCreate(table,headarr)
 
@@ -49,7 +47,7 @@ tbody.id = 'tbody'
 const form = document.getElementById('htmlform')
 form.addEventListener('submit', htmlFormEventListener)
 
-
+// ide kell majd egy tomb amibe a bekerendo adatokat taroljuk
 const fr = document.createElement('form')
 document.body.appendChild(fr)
 
@@ -116,17 +114,21 @@ fr.addEventListener('submit', function(e){
      * @type {CountryWriters}
      */
     const obj  = {}
-    obj.from = nvalue
-    obj.person = avalue
-    obj.piece = pvalue
-    obj.person2 = pvalue2
-    obj.piece2 = pvalue2
+    if(validateFields(obj.from,obj.person,obj.piece)){
+            obj.from = nvalue
+        obj.person = avalue
+        obj.piece = pvalue
+        obj.person2 = pvalue2
+        obj.piece2 = pvalue2
 
 
-    arr.push(obj)
+        arr.push(obj)
 
-    renderTableBody(arr)
+        renderTableBody(arr)
+    }
+
 })
+
 button('Hozzáadás',fr)
 renderTableBody(arr)
 
