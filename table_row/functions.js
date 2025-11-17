@@ -4,7 +4,7 @@
 
 /**
  * 
- * @param {*} form 
+ * @param {HTMLFormElement} form 
  * @param {string} id 
  * @param {string} labelcontent 
  */
@@ -241,13 +241,71 @@ function htmlFormEventListener(e){
  */
 function validateFields(inputField1,inputField2,inputField3){
 
-    const valid = false
+    const valid = true
     if(inputField1.value == ""){
         
+        const parentDiv = inputField1.parentElement;
+        const error = parentDiv.querySelector('.error')
+        error.innerText = 'Mező kitöltése kötelező'
+
+        valid = false
+    }
+    if(inputField2.value == ""){
+        
+        const parentDiv = inputField1.parentElement;
+        const error = parentDiv.querySelector('.error')
+        error.innerText = 'Mező kitöltése kötelező'
+
+        valid = false
+    }
+    if(inputField3.value == ""){
+        
+        const parentDiv = inputField1.parentElement;
+        const error = parentDiv.querySelector('.error')
+        error.innerText = 'Mező kitöltése kötelező'
+
         valid = false
     }
 
 
     return valid
 
+}
+
+/**
+ * 
+ * @param {string} id 
+ * @param {string[]} array 
+ */
+function generateForm(id,array){
+
+    const form_js = document.createElement('form')
+    form_js.id = id
+
+    for(const a of array){
+
+        CreateFormFormat(id,a.id,a.labelcontent)
+    }
+
+    const button = button(id,form)
+
+    return form
+
+}
+
+/**
+ * 
+ * @param {string[]} array 
+ * @param {string} tbodyId 
+ */
+function generateTable(array,tbodyId){
+
+    const table = document.createElement('table')
+
+    headCreate(table,array)
+    const tbody = document.createElement('tbody')
+    tbody.id = tbodyId
+
+    
+    document.body.appendChild(table)
 }

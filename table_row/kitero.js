@@ -32,6 +32,29 @@ const arr = [
     },
 ]
 
+const formArr  = [
+    {
+        id:'nemzetiseg',
+        labelcontent:'Nemzetiség:'
+    },
+    {
+        id:'szerzo1',
+        labelcontent:'Szerző:'
+    },
+    {
+        id:'mu1',
+        labelcontent:'Mű:'
+    },
+    {
+        id:'szerzo2',
+        labelcontent:'Másik Szerző:'
+    },
+    {
+        id:'mu2',
+        labelcontent:'Mű:'
+    },
+]
+
 const table = document.createElement('table')
 document.body.appendChild(table)
 
@@ -48,6 +71,7 @@ const form = document.getElementById('htmlform')
 form.addEventListener('submit', htmlFormEventListener)
 
 // ide kell majd egy tomb amibe a bekerendo adatokat taroljuk
+
 const fr = document.createElement('form')
 document.body.appendChild(fr)
 
@@ -115,7 +139,8 @@ fr.addEventListener('submit', function(e){
      */
     const obj  = {}
     if(validateFields(obj.from,obj.person,obj.piece)){
-            obj.from = nvalue
+            
+        obj.from = nvalue
         obj.person = avalue
         obj.piece = pvalue
         obj.person2 = pvalue2
@@ -129,8 +154,11 @@ fr.addEventListener('submit', function(e){
 
 })
 
+
+
 button('Hozzáadás',fr)
 renderTableBody(arr)
+
 
 
 
