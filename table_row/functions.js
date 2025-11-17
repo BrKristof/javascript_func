@@ -1,6 +1,9 @@
 /**
  * @typedef {{from:string ,person:string ,piece:string ,piece2:?string ,person2:?string}} CountryWriters
  */
+/**
+ * @typedef 
+ */
 
 /**
  * 
@@ -221,16 +224,23 @@ function htmlFormEventListener(e){
     /**
      * @type {CountryWriters}
      */
+
     const obj  = {}
-    obj.from  = nvalue
-    obj.a  = avalue
-    obj.p = pvalue
-    obj.a2 = a2value
-    obj.p2 = p2value
+    if(validateField(nvalue,avalue,pvalue)){
+    
+        obj.from  = nvalue
+        obj.a  = avalue
+        obj.p = pvalue
+        
+        obj.a2 = a2value !== "" ? avalue : undefined
+        obj.p2 = p2value !== "" ? pvalue2 : undefined
+    }
+
 
     const tbody = document.getElementById('body')
 
     renderTableRow(tbody,obj)
+
 }
 
 /**
@@ -241,35 +251,56 @@ function htmlFormEventListener(e){
  */
 function validateFields(inputField1,inputField2,inputField3){
 
+    const form = inputField1.form
+    const error = form.querySelectorAll('.error')
+
+    for(const e of error){
+
+        e.innerText = ""
+    }
+
     const valid = true
-    if(inputField1.value == ""){
+
         
-        const parentDiv = inputField1.parentElement;
-        const error = parentDiv.querySelector('.error')
-        error.innerText = 'Mező kitöltése kötelező'
+    if(validateField(inputField1,'Mező kitöltése kötelező') == false){
 
         valid = false
     }
-    if(inputField2.value == ""){
-        
-        const parentDiv = inputField1.parentElement;
-        const error = parentDiv.querySelector('.error')
-        error.innerText = 'Mező kitöltése kötelező'
+    if(validateField(inputField2,'Mező kitöltése kötelező') == false){
 
         valid = false
     }
-    if(inputField3.value == ""){
-        
-        const parentDiv = inputField1.parentElement;
-        const error = parentDiv.querySelector('.error')
-        error.innerText = 'Mező kitöltése kötelező'
+        if(validateField(inputField3,'Mező kitöltése kötelező') == false){
 
         valid = false
     }
+
 
 
     return valid
 
+}
+
+/**
+ * 
+ * @param {HTMLInputElement} htmlinputfield 
+ * @param {string} rmessage 
+ * @returns 
+ */
+function validateField(htmlinputfield,rmessage){
+
+    const r = true
+    if(htmlinputfield == ""){
+
+        const div = htmlinputfield.parentElement;
+        const mess = div.querySelector('.error')
+        mess.innerText = rmessage
+
+        r = false
+
+    }
+
+    return r
 }
 
 /**
@@ -284,10 +315,11 @@ function generateForm(id,array){
 
     for(const a of array){
 
-        CreateFormFormat(id,a.id,a.labelcontent)
+        CreateFormFormat(form_js,a.id,a.labelcontent)
+
     }
 
-    const button = button(id,form)
+    const butt = button('hozzáad',form_js)
 
     return form
 
@@ -308,4 +340,5 @@ function generateTable(array,tbodyId){
 
     
     document.body.appendChild(table)
+    table.appendChild(tbody)
 }

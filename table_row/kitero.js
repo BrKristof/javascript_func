@@ -32,39 +32,34 @@ const arr = [
     },
 ]
 
-const formArr  = [
-    {
-        id:'nemzetiseg',
-        labelcontent:'Nemzetiség:'
-    },
-    {
-        id:'szerzo1',
-        labelcontent:'Szerző:'
-    },
-    {
-        id:'mu1',
-        labelcontent:'Mű:'
-    },
-    {
-        id:'szerzo2',
-        labelcontent:'Másik Szerző:'
-    },
-    {
-        id:'mu2',
-        labelcontent:'Mű:'
-    },
-]
+const object  = {
+    header : ["Nemzetiség", "Szerző", "Mű"],
+    formfields: [
+        {
+            id:'nemzetiseg',
+            labelcontent:'Nemzetiség:'
+        },
+        {
+            id:'szerzo1',
+            labelcontent:'Szerző:'
+        },
+        {
+            id:'mu1',
+            labelcontent:'Mű:'
+        },
+        {
+            id:'szerzo2',
+            labelcontent:'Másik Szerző:'
+        },
+        {
+            id:'mu2',
+            labelcontent:'Mű:'
+        },
+    ]
+}
 
-const table = document.createElement('table')
-document.body.appendChild(table)
 
-
-const headarr = ['Nemzetiség','Szerző','Mű']
-const th = headCreate(table,headarr)
-
-const tbody = document.createElement('tbody')
-table.appendChild(tbody)
-tbody.id = 'tbody'
+generateTable(object.header,'tbody')
 
 
 const form = document.getElementById('htmlform')
@@ -75,11 +70,6 @@ form.addEventListener('submit', htmlFormEventListener)
 const fr = document.createElement('form')
 document.body.appendChild(fr)
 
-const country = CreateFormFormat(fr,'nemzetiseg','Nemzetiség:')
-const author = CreateFormFormat(fr,'szerzo1','Szerző:')
-const title = CreateFormFormat(fr,'mu1','Mű:')
-const author2 = CreateFormFormat(fr,'szerzo2','Szerző:')
-const title2 = CreateFormFormat(fr,'mu2','Mű:')
 
 fr.addEventListener('submit', function(e){
 
@@ -138,13 +128,15 @@ fr.addEventListener('submit', function(e){
      * @type {CountryWriters}
      */
     const obj  = {}
-    if(validateFields(obj.from,obj.person,obj.piece)){
+    if(validateFields(nvalue,avalue,piece)){
             
         obj.from = nvalue
         obj.person = avalue
         obj.piece = pvalue
-        obj.person2 = pvalue2
-        obj.piece2 = pvalue2
+
+        obj.person2 = avalue2 !== "" ? avalue : undefined
+        obj.piece2 = pvalue2 !== "" ? pvalue2 : undefined
+
 
 
         arr.push(obj)
@@ -154,10 +146,13 @@ fr.addEventListener('submit', function(e){
 
 })
 
+const hf_form = generateForm('vmi',object.formfields)
+document.body.appendChild(hf_form)
 
 
 button('Hozzáadás',fr)
 renderTableBody(arr)
+
 
 
 
