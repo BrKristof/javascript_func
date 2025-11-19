@@ -11,12 +11,13 @@
  * @param {string} id 
  * @param {string} labelcontent 
  */
-function CreateFormFormat(form,id,labelcontent){
+// létrehoz egy form input-label fieldet + spant amit berak egy divbe és hozzáfűzi a megadott formhoz
+function CreateFormWithFormat(form,id,labelcontent){
 
     const div = document.createElement('div')
 
-    const span = document.createElement('span')
-    span.classList.add('error')
+    const span = document.createElement('span') //létrehoz egy span taget
+    span.classList.add('error') //ellátja a spant egy error osztállyal
     
 
     const label = document.createElement('label')
@@ -26,6 +27,7 @@ function CreateFormFormat(form,id,labelcontent){
     const input = document.createElement('input')
     input.id = id
 
+    // hozzáadja a divet a formhoz fomázva
     form.appendChild(div)
     Break(div)
     div.appendChild(label)
@@ -39,8 +41,9 @@ function CreateFormFormat(form,id,labelcontent){
 
 /**
  * 
- * @param {*} where 
+ * @param {HTMLBodyElement} where 
  */
+// létrehoz egy break-et a megadott helyen
 function Break(where){
     
     const br = document.createElement('br')
@@ -53,6 +56,7 @@ function Break(where){
  * @param {string} text 
  * @param {} where 
  */
+// létrehoz egy gombot a megadott szöveggel és a megadott taghez hozzáfűzi
 function button(text,where){
     
     const button = document.createElement('button')
@@ -65,12 +69,13 @@ function button(text,where){
  * 
  * @param {string[]} array 
  */
+//bekér egy tömböt amiböl létrehozza a táblázat törzsét
 function renderTableBody(array){
 
     const innerbody = document.getElementById('tbody')
-    innerbody.innerHTML = ""
+    innerbody.innerHTML = "" // ha már lenne benne valami kiüríti
     
-
+    //végigmegy a tömb elemein ezzel létrehozza a body-t
     for (const a of array){
 
         renderTableRow(innerbody,a) //itt hozzuk letre a sorokat, a for-on beluli valoto kerul a CountryWriters helyére és a cikluson belül lévő body a tbody helyére
@@ -82,39 +87,43 @@ function renderTableBody(array){
 /**
  * 
  * @param {HTMLTableElement} tbody 
- * @param {*} CountryWriters 
+ * @param {CountryWriters} CountryWriters 
  */
-function renderTableRow(tbody,CountryWriters)// CountryWriters ami eltárolja az adatokak 
+// bekér a html-body változóját és bekére az adatokat táróló tömb egy elemét
+// CountryWriters ami eltárolja az adatokak 
+function renderTableRow(tbody,CountryWriters)
 {
 
     const tr = document.createElement('tr')
     tbody.appendChild(tr)
 
     const td = createCell('td',CountryWriters.from,tr)
-
+    //bevezetjuk a createCell fügvényt amit létrehozza a sor első elemét aminek a szövege a CountryWriters első típusa
+    // a pont utan megadjuk neki melyik értéket kérje el az elemek közül
+ 
+    // annyi a lényege hogy ha rákattintok egy elemre a táblázatból akkor megkapja a marked osztályt
     td.addEventListener("click",function(e){
-    /**
-     * @type {HTMLTableCellElement}
-     */
-    const i = e.target
-            
-    const row = i.parentElement
-    const tbody = row.parentElement
+        /**
+         * @type {HTMLTableCellElement}
+         */
+        const i = e.target
+                
+        const row = i.parentElement
+        const tbody = row.parentElement //ez ahhoz kell hogy megtalálja a marked osztállyal rendelkező elemeket az egész táblázat body-ában
 
-    const marked = tbody.querySelector('.marked')
+        const marked = tbody.querySelector('.marked')
 
-    if(marked != Null){
-        marked.classList.remove(marked)
-    }
-    marked.classList.add()
-
-    i.classList.add('marked')
-
+        //ha az elem nem rendelkezik marked osztállyal akkor ad neki
+        if(!marked){
+            i.classList.add('marked') // itt 
+        }
+        
     })
 
     const td2 = createCell('td',CountryWriters.person,tr)
     const td3 = createCell('td',CountryWriters.piece,tr)
 
+    //mivel nem minden esetben van 4. és 5. elem a táblázatban ezért szükséges ezt lekezelni nehogy undefined-ot kapjunk + egy új sort hoz létre amibe teszi ezt a két elemet
     if(CountryWriters.person2 != undefined && CountryWriters.piece2 != undefined){
 
         const ptr = document.createElement('tr')
@@ -129,14 +138,13 @@ function renderTableRow(tbody,CountryWriters)// CountryWriters ami eltárolja az
 
 /**
  * 
- * letrehoz egy cellát és visszatér vele
- * 
  * @param {"td" | "th"} celltype 
  * @param {string} cellcontent 
  * @param {HTMLTableRowElement} parentrow 
  * 
  * @returns {HTMLTableCellElement}
  */
+// letrehoz egy cellát és visszatér vele
 function createCell(celltype,cellcontent,parentrow){
 
     const cell = document.createElement(celltype)
@@ -150,6 +158,7 @@ function createCell(celltype,cellcontent,parentrow){
  * @param {HTMLTableElement} table 
  * @param {string[]} header_list 
  */
+//létrehozza a táblázat fejlécét egy listából és hozzáfűzi a megadott táblázathoz
 function headCreate(table,header_list){
     
     const thead = document.createElement('thead')
@@ -178,7 +187,7 @@ function htmlFormEventListener(e){
     /**
      * @type {HTMLInputElement}
      */
-    const n = form.querySelector('#nemzetiseg')
+    const n = form.querySelector('#nationality')
     /**
      * @type {string}
      */
@@ -187,7 +196,7 @@ function htmlFormEventListener(e){
     /**
      * @type {HTMLInputElement}
      */
-    const a = form.querySelector('#mu1')
+    const a = form.querySelector('#author')
         /**
      * @type {string}
      */
@@ -196,7 +205,7 @@ function htmlFormEventListener(e){
     /**
      * @type {HTMLInputElement}
      */
-    const p = form.querySelector('#nemzetiseg')
+    const p = form.querySelector('#mu1')
         /**
      * @type {string}
      */
@@ -205,7 +214,7 @@ function htmlFormEventListener(e){
     /**
      * @type {HTMLInputElement}
      */
-    const a2 = form.querySelector('#szerzo2')
+    const a2 = form.querySelector('#author2')
         /**
      * @type {string}
      */
@@ -226,15 +235,15 @@ function htmlFormEventListener(e){
      */
 
     const obj  = {}
-    if(validateField(nvalue,avalue,pvalue)){
-    
+    if(validateFields(nvalue,avalue,pvalue)){
+        
         obj.from  = nvalue
         obj.a  = avalue
         obj.p = pvalue
-        
-        obj.a2 = a2value !== "" ? avalue : undefined
-        obj.p2 = p2value !== "" ? pvalue2 : undefined
     }
+
+    obj.a2 = a2value != ""? a2value : undefined
+    obj.p2 = p2value != "" ? p2value : undefined
 
 
     const tbody = document.getElementById('body')
@@ -252,25 +261,26 @@ function htmlFormEventListener(e){
 function validateFields(inputField1,inputField2,inputField3){
 
     const form = inputField1.form
-    const error = form.querySelectorAll('.error')
+    const error = form.querySelectorAll('.error') // elérjük a form-ot és egy listába szedjük össze az error osztállyal rendelkező elemeket
 
+    // az error osztállyal rendelkező elemek tartalmát üressé teszük
     for(const e of error){
 
         e.innerText = ""
     }
 
-    const valid = true
+    let valid = true
 
         
-    if(validateField(inputField1,'Mező kitöltése kötelező') == false){
+    if(validateField(inputField1,'1. Mező kitöltése kötelező') == false){
 
         valid = false
     }
-    if(validateField(inputField2,'Mező kitöltése kötelező') == false){
+    if(validateField(inputField2,'2. Mező kitöltése kötelező') == false){
 
         valid = false
     }
-        if(validateField(inputField3,'Mező kitöltése kötelező') == false){
+    if(validateField(inputField3,'3. Mező kitöltése kötelező') == false){
 
         valid = false
     }
@@ -287,14 +297,15 @@ function validateFields(inputField1,inputField2,inputField3){
  * @param {string} rmessage 
  * @returns 
  */
+// megvizsgálja hogy az input bemeneti értéke nem üres és visszatér egy boolean változóval
 function validateField(htmlinputfield,rmessage){
 
     const r = true
     if(htmlinputfield == ""){
 
         const div = htmlinputfield.parentElement;
-        const mess = div.querySelector('.error')
-        mess.innerText = rmessage
+        const span = div.querySelector('.error')
+        span.innerText = rmessage
 
         r = false
 
@@ -315,7 +326,7 @@ function generateForm(id,array){
 
     for(const a of array){
 
-        CreateFormFormat(form_js,a.id,a.labelcontent)
+        CreateFormWithFormat(form_js,a.id,a.labelcontent)
 
     }
 

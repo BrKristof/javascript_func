@@ -83,7 +83,7 @@ fr.addEventListener('submit', function(e){
     /**
      * @type {HTMLInputElement}
      */
-    const nationality = js_form.querySelector('#nemzetiseg')
+    const nationality = js_form.querySelector('#nationality')
         /**
      * @type {HTMLInputElement}
      */
@@ -150,7 +150,6 @@ const hf_form = generateForm('vmi',object.formfields)
 document.body.appendChild(hf_form)
 
 
-button('Hozzáadás',fr)
 renderTableBody(arr)
 
 
