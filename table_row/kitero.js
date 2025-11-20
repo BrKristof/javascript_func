@@ -60,6 +60,7 @@ const object  = {
 
 
 generateTable(object.header,'tbody')
+renderTableBody(arr)
 
 
 const form = document.getElementById('htmlform')
@@ -67,8 +68,9 @@ form.addEventListener('submit', htmlFormEventListener)
 
 // ide kell majd egy tomb amibe a bekerendo adatokat taroljuk
 
-const fr = document.createElement('form')
+const fr = generateForm('fr',object.formfields)
 document.body.appendChild(fr)
+
 
 
 fr.addEventListener('submit', function(e){
@@ -83,7 +85,7 @@ fr.addEventListener('submit', function(e){
     /**
      * @type {HTMLInputElement}
      */
-    const nationality = js_form.querySelector('#nationality')
+    const nationality = js_form.querySelector('#nemzetiseg')
         /**
      * @type {HTMLInputElement}
      */
@@ -128,29 +130,34 @@ fr.addEventListener('submit', function(e){
      * @type {CountryWriters}
      */
     const obj  = {}
-    if(validateFields(nvalue,avalue,piece)){
+
             
-        obj.from = nvalue
-        obj.person = avalue
-        obj.piece = pvalue
+    obj.from = nvalue
+    obj.person = avalue
+    obj.piece = pvalue
 
-        obj.person2 = avalue2 !== "" ? avalue : undefined
-        obj.piece2 = pvalue2 !== "" ? pvalue2 : undefined
+    obj.person2 = avalue2 !== "" ? avalue : undefined
+    obj.piece2 = pvalue2 !== "" ? pvalue2 : undefined
 
-
-
-        arr.push(obj)
-
-        renderTableBody(arr)
+    if(!validateFields( obj.from ,obj.person,obj.piece)){
+        return
     }
+
+
+
+    arr.push(obj)
+
+    renderTableBody(arr)
 
 })
 
-const hf_form = generateForm('vmi',object.formfields)
-document.body.appendChild(hf_form)
 
 
-renderTableBody(arr)
+
+
+
+
+
 
 
 

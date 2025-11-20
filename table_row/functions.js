@@ -234,18 +234,20 @@ function htmlFormEventListener(e){
      * @type {CountryWriters}
      */
 
+    
     const obj  = {}
-    if(validateFields(nvalue,avalue,pvalue)){
-        
-        obj.from  = nvalue
-        obj.a  = avalue
-        obj.p = pvalue
-    }
 
+    obj.from  = nvalue
+    obj.a  = avalue
+    obj.p = pvalue
     obj.a2 = a2value != ""? a2value : undefined
     obj.p2 = p2value != "" ? p2value : undefined
 
 
+    if(validateFields(obj.from, obj.a ,obj.p) == false){
+        return
+    }
+    
     const tbody = document.getElementById('body')
 
     renderTableRow(tbody,obj)
@@ -257,6 +259,8 @@ function htmlFormEventListener(e){
  * @param {HTMLInputElement} inputField1 
  * @param {HTMLInputElement} inputField2 
  * @param {HTMLInputElement} inputField3 
+ * 
+ * @returns {boolean}
  */
 function validateFields(inputField1,inputField2,inputField3){
 
@@ -272,9 +276,12 @@ function validateFields(inputField1,inputField2,inputField3){
     let valid = true
 
         
-    if(validateField(inputField1,'1. Mező kitöltése kötelező') == false){
+    if (htmlInputField1.value == "") {
 
-        valid = false
+        const div = htmlInputField1.parentElement;
+        const errormsg = div.querySelector(".error");
+        errormsg.innerText = "1. Mező kitöltése kötelező";
+        valid = false;
     }
     if(validateField(inputField2,'2. Mező kitöltése kötelező') == false){
 
@@ -318,21 +325,25 @@ function validateField(htmlinputfield,rmessage){
  * 
  * @param {string} id 
  * @param {string[]} array 
+ * 
+ * @returns {HTMLFormElement}
  */
+// létrehoz egy formot a megadott id és tömb alapján 
 function generateForm(id,array){
 
-    const form_js = document.createElement('form')
-    form_js.id = id
+    const form = document.createElement('form')
+    form.id = id
 
+    //végigmegyünk a tömbön 
     for(const a of array){
 
-        CreateFormWithFormat(form_js,a.id,a.labelcontent)
+        CreateFormWithFormat(form,a.id,a.labelcontent)//bevezetjük a CreateFormWithFormat fügvényt ami létrehozza nekünk a label-input párokat
 
     }
 
-    const butt = button('hozzáad',form_js)
+    button('hozzáad',form) //hozzáadunk egy gombot
 
-    return form
+    return form // visszatérünk az egész form-al hogy váltózóba tudjuk tenni és vele dolgozni
 
 }
 
@@ -341,11 +352,13 @@ function generateForm(id,array){
  * @param {string[]} array 
  * @param {string} tbodyId 
  */
+// létrehoz egy táblázatot aminek csak a fejlécét hozza létre és egy üres törzset
+// bekére a fejléc tömbjét és a tbody id-ját
 function generateTable(array,tbodyId){
 
     const table = document.createElement('table')
 
-    headCreate(table,array)
+    headCreate(table,array) // bevezetjük a headCreate fügvényt ami létrehozza nekünk a fejlécet
     const tbody = document.createElement('tbody')
     tbody.id = tbodyId
 
